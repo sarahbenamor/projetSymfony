@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voici la liste des trajets</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Ligne</th>
+                <th>Point de départ</th>
+                <th>Destination</th>
+                <th>Horaire</th>
+                <th>Véhicule</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trajet in trajets %}
+                <tr>
+                    <td>{{ trajet.id }}</td>
+                    <td>{{ trajet.type }}</td>
+                    <td>{{ trajet.ligne }}</td>
+                    <td>{{ trajet.pointDepart }}</td>
+                    <td>{{ trajet.destination }}</td>
+                    <td>{{ trajet.horaire ? trajet.horaire|date('d/m/Y H:i') : 'Non défini' }}</td>
+                    <td>{{ trajet.vehicule ? trajet.vehicule.type : 'Aucun' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

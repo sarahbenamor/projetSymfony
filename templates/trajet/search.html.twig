@@ -1,0 +1,58 @@
+
+
+{% extends 'trajet.html.twig' %}
+
+{% block title %}Recherche de Trajets{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                    <h6>Recherche de Trajets</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    {{ form_start(form) }}
+                        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                                <div class="input-group">
+                                    <span class="input-group-text text-body">
+                                        <i class="fas fa-search" aria-hidden="true"></i>
+                                    </span>
+                                    {{ form_widget(form.ligne, { 'attr': {'class': 'form-control', 'placeholder': 'Rechercher par ligne...'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+
+                    {# {% if trajets is not empty %} #}
+                    {% if trajets is defined and trajets|length > 0 %}
+
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Ligne</th>
+                                    <th>Départ</th>
+                                    <th>Destination</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for trajet in trajets %}
+                                    <tr>
+                                        <td>{{ trajet.ligne }}</td>
+                                        <td>{{ trajet.pointDepart }}</td>
+                                        <td>{{ trajet.destination }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>Aucun trajet trouvé pour la ligne spécifiée.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

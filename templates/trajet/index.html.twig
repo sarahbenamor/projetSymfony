@@ -1,0 +1,96 @@
+
+{% extends 'trajet.html.twig' %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <form method="get" action="{{ path('trajet_home') }}" class="d-flex align-items-center">
+                             <div class="input-group">
+                                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                    <input type="text" name="ligne" class="form-control" placeholder="Rechercher par ligne, départ ou destination" value="{{ ligne }}">
+                            </div>
+                            <button 
+                                type="submit" 
+                                class="btn btn-primary ms-2 shadow-sm"
+                                style="border-radius: 8px; height: 35px; padding: 0 12px;">
+                                Rechercher
+                            </button>
+                        </form>
+                    </div>
+                        <div class="d-flex justify-content-center">
+                                <a href="{{ path('trajet_new') }}" 
+                                class="btn btn-primary btn-sm d-flex align-items-center justify-content-center shadow-sm" 
+                                style="border-radius: 8px; height: 35px; padding: 0 12px;">
+                                    <i class="fas fa-plus me-2"></i> <!-- Icon before the text -->
+                                    Ajouter un trajet
+                                </a>
+                        </div>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+
+                    {% if trajets is empty %}
+                    <div class="alert text-center" style="background-color: #f8d7da; color: #721c24;">
+                        Aucun trajet correspondant à votre recherche n'a été trouvé.
+                    </div>
+                    <a href="{{ path('trajet_home') }}" class="btn btn-success">Retour à la liste des trajets</a>
+                    {% else %}
+
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ligne</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Point de départ</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Destination</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        <a href="{{ path('trajet_home', {sort: 't.horaire', direction: direction == 'asc' and sort == 't.horaire' ? 'desc' : 'asc', ligne: ligne}) }}" class="text-decoration-none text-dark">
+                                            Horaires 
+                                            {% if sort == 't.horaire' %}
+                                                {{ direction == 'asc' ? '🔼' : '🔽' }}
+                                            {% endif %}
+                                        </a>
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Véhicule</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                {% for trajet in trajets %}
+                                    <tr>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.id }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.type }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.ligne }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.pointDepart }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.destination }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.horaire ? trajet.horaire|date('Y-m-d H:i') : 'Non défini' }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ trajet.vehicule ? trajet.vehicule.type : 'Aucun' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ path('trajet_edit', {'id': trajet.id}) }}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i> Modifier
+                                            </a>
+                                            <form method="post" action="{{ path('trajet_delete', {'id': trajet.id}) }}" style="display:inline;">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trajet.id) }}">
+                                                <button type="submit" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-trash-alt"></i> Supprimer
+                                                </button>
+                                            </form>
+                                        </td>         
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

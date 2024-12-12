@@ -1,0 +1,157 @@
+{% extends 'vehicule.html.twig' %}
+
+{% block title %}Modifier le véhicule{% endblock %}
+
+{% block body %}
+<style>
+/* Conteneur principal */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Style général des labels et des inputs */
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    width: 150px; /* Largeur fixe des labels */
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #5e72e4;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(94, 114, 228, 0.6);
+    outline: none;
+}
+
+/* Champs sur des lignes séparées */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Boutons */
+button[type="submit"] {
+    background-color: #f0ad4e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #ec971f;
+}
+
+a.btn-success {
+    margin-top: 15px;
+}
+</style>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                    <h6>Modifier le véhicule</h6>
+                    <a href="{{ path('vehicule_home') }}" class="btn btn-success">Retour à la liste des véhicules</a>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    {{ form_start(form) }}
+                    <div class="form-container">
+                        <!-- Type du véhicule -->
+                        <div class="form-group">
+                            {{ form_label(form.type, 'Type du véhicule') }}
+                            {{ form_widget(form.type) }}
+                        </div>
+
+                        <!-- Matricule, Marque, Capacité -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                {{ form_label(form.matricule, 'Matricule') }}
+                                {{ form_widget(form.matricule) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.marque, 'Marque') }}
+                                {{ form_widget(form.marque) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.capacite, 'Capacité') }}
+                                {{ form_widget(form.capacite) }}
+                            </div>
+                        </div>
+
+                        <!-- Statut -->
+                        <div class="form-group">
+                            {{ form_label(form.statut, 'Statut') }}
+                            <div class="radio-options">
+                                {{ form_widget(form.statut) }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-warning">Mettre à jour</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{# {% extends 'vehicule.html.twig' %}
+
+{% block title %}Modifier le véhicule{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                    <h6>Modifier le véhicule</h6>
+                    <a href="{{ path('vehicule_new') }}" class="btn btn-primary">Ajouter un véhicule</a>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+    {{ form_start(form) }}
+                    <div class="form-container">
+                        {{ form_widget(form) }}
+                    </div>
+        <button type="submit" class="btn btn-warning">Mettre à jour</button>
+    {{ form_end(form) }}
+    <a href="{{ path('vehicule_home') }}" class="btn btn-success">Retour à la liste des véhicules</a>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ #}
