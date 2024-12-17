@@ -94,7 +94,30 @@ class VehiculeController extends AbstractController
         ];
         return new JsonResponse($vehicles);
     }
-
+    // #[Route('/vehicule/pdf', name: 'vehicule_pdf')]
+    // public function exportPdf(Vehicule $vehicule): Response
+    // {
+    //     $vehicule = $vehiculeRepository->findAll();
+    
+    //     $pdfOptions = new Options();
+    //     $pdfOptions->set('defaultFont', 'Arial'); 
+    
+    //     $dompdf = new Dompdf($pdfOptions);
+    
+    //     $html = $this->renderView('vehicule/pdf.html.twig', [
+    //         'vehicule' => $vehicule
+    //     ]);
+    
+    //     $dompdf->loadHtml($html);
+    
+    //     $dompdf->setPaper('A4', 'portrait');
+    
+    //     $dompdf->render();
+    
+    //     return new Response($dompdf->stream('liste_vehicules.pdf', [
+    //         'Attachment' => true
+    //     ]));
+    // }
     #[Route('/vehicule/notification', name: 'notification_email')]
     public function notifyDelay(MailerInterface $mailer): Response
     {
